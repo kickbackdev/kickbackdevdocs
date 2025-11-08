@@ -23,7 +23,7 @@ These steps run immediately after the trigger to normalize data and validate inp
 
 This path handles the "Shop Partner Agreement" and includes logic for Charter status.
 
-![Path B: Shop Partner Steps](./../5.screenshots/path_b_shop.png)
+![Path A: Shop Partner Steps](./../5.screenshots/path%20A%20-%20shop%20partner.png)
 
 **Key Steps:**
 1.  **AT Find/Create Partner (Shop):** Finds or creates the Partner record. Sets `Partner Type = Shop`.
@@ -42,7 +42,7 @@ This path handles the "Shop Partner Agreement" and includes logic for Charter st
 
 This path handles the "Individual Partner Agreement".
 
-![Path A: Individual Partner Steps](./../5.screenshots/path_a_individual.png)
+![Path B: Individual Partner](./../5.screenshots/path%20B%20-%20individual%20partner.png)
 
 **Key Steps:**
 1.  **AT Find/Create Partner (Individual):** Finds a Partner by `normalized_email` or creates a new one if not found. Sets `Partner Type = Individual`.
@@ -57,7 +57,7 @@ This path handles the "Individual Partner Agreement".
 
 This path handles the "Ambassador Agreement".
 
-![Path C: Ambassador Steps](./../5.screenshots/path_c_ambassador.png)
+![Path C: Ambassador Steps](./../5.screenshots/part%20C%20-%20Ambassador%20partner.png)
 
 **Key Steps:**
 1.  **AT Find/Create Partner (Ambassador):** Finds or creates the Partner record. Sets `Partner Type = Ambassador`.
@@ -72,7 +72,7 @@ This path handles the "Ambassador Agreement".
 
 This path handles the "Individual Parts Agreement (Addendum)" and only *finds* existing partners.
 
-![Path D: Parts Addendum Steps](./../5.screenshots/path_d_addendum.png)
+![Path D: Parts Addendum Steps](./../5.screenshots/part%20C%20-%20part%20Addandum.png)
 
 **Key Steps:**
 1.  **AT Find Partner (Addendum):** **Finds** an existing Partner by `normalized_email`. **Create if not found: Off**.
@@ -85,3 +85,4 @@ This path handles the "Individual Parts Agreement (Addendum)" and only *finds* e
 6.  **AT Create Part (from Addendum):** Creates the new `Parts` record, linking the `Owner` (from Step 1) and using the normalized data (from Step 5).
 
 7.  **SLK Notify: Part created (awaiting receipt):** Sends a success alert to `#automation-alerts`.
+
