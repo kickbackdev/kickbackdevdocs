@@ -8,6 +8,7 @@ Use the left navigation or the index below to open each document.
 ## 1. Runbook
 
 - [KKB-F1-Contract-Register-[dev] Operations Manual (Runbook)](1.runbook/README.md)
+- [Kickback 플랫폼 자동화 운영 매뉴얼](1.runbook/platform_operations_manual.md)
 
 ---
 
