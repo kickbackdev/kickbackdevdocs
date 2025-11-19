@@ -56,3 +56,8 @@ Slack notification screenshots used in test scenarios.
 - Shop test: `6.slack/Shop Test ScreenShot.png`
 
 ---
+
+## 7. Airtable Automations
+
+- [Warehouse & Airtable Automation Design](7.automation/warehouse_automation.md)
+
