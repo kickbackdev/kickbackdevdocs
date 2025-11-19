@@ -49,6 +49,7 @@
 > Full schema lives in `schema.md`. This section highlights the fields ops teams manipulate often.
 
 ### 3.1 Core Tables & Purpose
+
 | Table | Purpose | Must-know Fields |
 | --- | --- | --- |
 | **Partners** | Manage shops/individuals/ambassadors/referrals | `Partner Type`, `Email`, `Stripe Connected Account ID`, `Stripe Customer ID`, `Referred By`, `Shop Type`, `Subscription Status`, `Charter Status End Date` |
@@ -123,6 +124,7 @@
 - Kickback share: **≈35%**, distributed as Shop Partner 5%, Ambassador 5%, Referral Partner 3%, remainder retained by Kickback.
 
 ### 5.2 Tiered Fees by Sale Price
+
 | Gross Price | Kickback Share | Notes |
 | --- | --- | --- |
 | ≤ $250 | 40% | Covers low-ticket handling cost |
@@ -144,6 +146,7 @@
 ## 6. Monitoring & Incident Response
 
 ### 6.1 Slack Alert Matrix
+
 | Channel | Sample Message | Meaning / Action |
 | --- | --- | --- |
 | `#automation-alerts` | `✅ New partner onboarded ...` | Success. If duplicate warning is included, validate email uniqueness. |
@@ -176,6 +179,7 @@
 - Full field definitions: `schema.md`. Update that doc whenever new fields/dependencies are introduced.
 
 ### 7.2 Change Log Template
+
 | Date | Owner | Change Summary | Ticket |
 | --- | --- | --- | --- |
 | 2025-11-07 | Jeong Yuhyeon | System initial build complete per KKB-F1-14 | KKB-F1-14 |
