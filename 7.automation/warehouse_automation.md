@@ -1,4 +1,3 @@
-````markdown
 # Airtable Warehouse & Automation Design (Kickback Operations)
 
 This document describes the Airtable schema, warehouse codes, automations, and QR label design used in the **Kickback Operations** base.  
@@ -42,7 +41,6 @@ Warehouse codes are standardized as:
 {STATE2}-{COUNTY}-{CAT}-{NN}
 e.g. MD-PG-MET-01, MD-PG-SUB-03
 ```
-````
 
 - **State Code**: 2-letter state code (e.g. `MD`)
 - **County Code**: short county code (e.g. `PG`)
