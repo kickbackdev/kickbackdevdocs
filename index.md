@@ -61,4 +61,9 @@ Slack notification screenshots used in test scenarios.
 ## 7. Airtable Automations
 
 - [Warehouse & Airtable Automation Design](7.automation/warehouse_automation.md)
+---
+
+## 8. Schema
+
+- [Kickback Operations Data Schema](schema.md)
 
