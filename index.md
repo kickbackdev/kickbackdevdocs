@@ -5,12 +5,13 @@ This index is the top level for multiple processes (e.g., Contract Automation, S
 
 ---
 
-## Contract Register Automation (KKB-F1)
+## Kickback Platform Automation Operations Manual
 
-All docs that describe the KKB-F1 contract automation are accessed through the main runbook entry below.
+This manual is the umbrella guide for each automation stream (contract, settlement, etc.).
 
-- [KKB-F1-Contract-Register-[dev] Operations Manual (Runbook)](1.runbook/README.md)
-  - [Kickback Platform Automation Operations Manual](1.runbook/platform_operations_manual.md)
+- [Kickback Platform Automation Operations Manual](1.runbook/platform_operations_manual.md)
+  - **Contract Register Automation (KKB-F1)**  
+    - [KKB-F1-Contract-Register-[dev] Operations Manual (Runbook)](1.runbook/README.md)
     - **Mappings**  
       - [Field Mapping Specification](2.mappings/field_mapping.md)  
       - Raw spreadsheet: `2.mappings/field_mapping.csv.xlsx`
@@ -34,10 +35,6 @@ All docs that describe the KKB-F1 contract automation are accessed through the m
     - **Airtable Automations & Schema**  
       - [Warehouse & Airtable Automation Design](7.automation/warehouse_automation.md)  
       - [Kickback Operations Data Schema](schema.md)
-
----
-
-## Settlement Operations
-
-Settlement process documentation will be added to this section. When content is ready, new directories and links will appear here.
+  - **Settlement Operations**  
+    - Settlement process documentation will be added to this branch. When content is ready, new directories and links will appear here.
 
