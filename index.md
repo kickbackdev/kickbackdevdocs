@@ -36,6 +36,7 @@ This manual is the umbrella guide for each automation stream (contract, settleme
       - [Warehouse & Airtable Automation Design](7.automation/warehouse_automation.md)  
       - [Kickback Operations Data Schema](schema.md)
   - **Settlement Operations**  
+  - [Airtable Payout Processing – Complete Operations Manual](7.automation/airtable_payout_processing.md)
     - [Settlement & Payout Automation (Daily Runbook)](1.runbook/platform_operations_manual.md#42-settlement--payout-automation-daily)  
     - [Settlement Model & Examples](1.runbook/platform_operations_manual.md#5-settlement-model--examples)  
     - [Automated Settlement & Payout System – Video Notes](7.automation/video_description.md)  
