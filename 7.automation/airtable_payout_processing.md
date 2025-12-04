@@ -209,7 +209,17 @@ This section explains the same flow as shown in the screen recording
 
 You can watch the video and follow along with the timestamps below.
 
-{% embed url="https://youtu.be/2dGNPOQHbag" %}
+<div style="max-width: 720px;">
+  <iframe
+    width="100%"
+    height="405"
+    src="https://www.youtube.com/embed/2dGNPOQHbag"
+    title="Automated Settlement & Payout System – Video Walkthrough"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+</div>
 
 ---
 
