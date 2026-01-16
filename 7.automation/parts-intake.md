@@ -46,7 +46,19 @@ The current flow is complete up to the data update upon 'Price Acceptance'. The 
 
 #### 3-2. Video Walkthrough & Timeline Analysis
 
-**Video:** [https://youtu.be/yARr8zCvb4w](https://youtu.be/yARr8zCvb4w)
+**Video (YouTube):**
+
+<div style="max-width: 720px;">
+  <iframe
+    width="100%"
+    height="405"
+    src="https://www.youtube.com/embed/yARr8zCvb4w"
+    title="Parts Intake & Offer Automation - Video Walkthrough"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+</div>
 
 | Timeline | Stage | Detailed Description |
 | :--- | :--- | :--- |

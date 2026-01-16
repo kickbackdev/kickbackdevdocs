@@ -41,7 +41,19 @@ The video verifies the logic quickly and accurately using the Zapier Replay feat
 
 #### 3-2. Video Walkthrough & Timeline Analysis
 
-**Video:** [https://youtu.be/BW6cqwXRS9w](https://youtu.be/BW6cqwXRS9w)
+**Video (YouTube):**
+
+<div style="max-width: 720px;">
+  <iframe
+    width="100%"
+    height="405"
+    src="https://www.youtube.com/embed/BW6cqwXRS9w"
+    title="SignWell Contract Execution & System Sync - Video Walkthrough"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+</div>
 
 | Timeline | Stage | Detailed Description |
 | :--- | :--- | :--- |

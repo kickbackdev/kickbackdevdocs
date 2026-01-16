@@ -45,7 +45,19 @@ The current logic focuses on internal Airtable data processing, and interface in
 
 #### 3-2. Video Walkthrough & Timeline Analysis
 
-**Video:** [https://youtu.be/g51QEAlks-c](https://youtu.be/g51QEAlks-c)
+**Video (YouTube):**
+
+<div style="max-width: 720px;">
+  <iframe
+    width="100%"
+    height="405"
+    src="https://www.youtube.com/embed/g51QEAlks-c"
+    title="Internal Parts Operations & Warehouse Logic - Video Walkthrough"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+</div>
 
 | Timeline | Stage | Detailed Description |
 | :--- | :--- | :--- |
