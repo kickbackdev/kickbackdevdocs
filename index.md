@@ -7,37 +7,16 @@ This index is the top level for multiple processes (e.g., Contract Automation, S
 
 ## Kickback Platform Automation Operations Manual
 
-This manual is the umbrella guide for each automation stream (contract, settlement, etc.).
+This manual is the umbrella guide for each automation stream, organized by the operational lifecycle.
 
-- [Kickback Platform Automation Operations Manual](1.runbook/platform_operations_manual.md)
-  - **Contract Register Automation (KKB-F1)**  
-    - [KKB-F1-Contract-Register-[dev] Operations Manual (Runbook)](1.runbook/README.md)
-    - **Mappings**  
-      - [Field Mapping Specification](2.mappings/field_mapping.md)  
-      - Raw spreadsheet: `2.mappings/field_mapping.csv.xlsx`
-    - **Automation Paths**  
-      - [Automation Paths Overview](3.paths/paths_overview.md)
-    - **Tests**  
-      - [E2E Test Results Summary](4.tests/e2e_result.md)  
-      - Raw spreadsheet: `4.tests/E2E_results.xlsx`
-    - **Screenshots**  
-      - Common utilities and filters: `5.screenshots/common_utility_and_filters.png`  
-      - Path A – Shop partner flow: `5.screenshots/path A - shop partner.png`  
-      - Path B – Individual partner flow: `5.screenshots/path B - individual partner.png`  
-      - Part C – Ambassador partner flow: `5.screenshots/part C - Ambassador partner.png`  
-      - Part C – Parts Addendum flow: `5.screenshots/part C - part Addendum.png`
-    - **Slack Evidence**  
-      - Ambassador contract test: `6.slack/Ambassador Test ScreenShot.png`  
-      - Individual contract test: `6.slack/Individual Test Screenshot.png`  
-      - Parts error test: `6.slack/Parts Error Test Screenshot .png`  
-      - Parts success test: `6.slack/Parts Test Screenshot.png`  
-      - Shop test: `6.slack/Shop Test ScreenShot.png`
-    - **Airtable Automations & Schema**  
-      - [Warehouse & Airtable Automation Design](7.automation/warehouse_automation.md)  
-      - [Kickback Operations Data Schema](schema.md)
-  - **Settlement Operations**  
-  - [Airtable Payout Processing – Complete Operations Manual](7.automation/airtable_payout_processing.md)
-    - [Settlement & Payout Automation (Daily Runbook)](1.runbook/platform_operations_manual.md#42-settlement--payout-automation-daily)  
-    - [Settlement Model & Examples](1.runbook/platform_operations_manual.md#5-settlement-model--examples)  
-    - [Automated Settlement & Payout System – Video Notes](7.automation/video_description.md)  
-    - [Settlement Batches Schema](schema.md#settlement-batches)
+### 1. Intake & Offer
+* **[Parts Intake & Offer Automation](7.automation/Parts%20Intake.md)** *Covers the flow from Consignor submission, Price proposal, to Offer acceptance.*
+
+### 2. Contract Execution
+* **[SignWell Contract Execution & System Sync](7.automation/SignWell%20Contract%20Execution.md)** *Covers the flow of signing agreements, archiving PDFs, and syncing partner data.*
+
+### 3. Internal Operations
+* **[Internal Parts Operations & Warehouse Logic](7.automation/Internal%20Parts%20Operations%20&%20Warehouse%20Logic.md)** *Covers warehouse intake, timestamps, transfers, and SLA monitoring.*
+
+### 4. Settlement Operations
+* **[Airtable Payout Processing – Complete Operations Manual](7.automation/airtable_payout_processing.md)** *Covers payout calculations, Stripe transfers, and settlement batch tracking.*
