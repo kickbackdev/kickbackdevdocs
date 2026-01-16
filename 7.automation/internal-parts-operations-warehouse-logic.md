@@ -2,6 +2,10 @@
 
 This section covers the operational system managing the process from part arrival at the warehouse to **[Intake → Cleaning/Photos → Shelving → Listing]** using Airtable checkboxes and automation logic.
 
+![Internal parts operations overview](../images/internal-ops.webp)
+
+![Internal parts operations - transfer and SLA logic](../images/internal-ops-2.webp)
+
 > **⚠️ Disclaimer**
 > The automation logic in this section (checkbox-based status tracking, warehouse transfer logic, etc.) is a **Beta version** implemented based on the currently proposed schema.
 > As Kickback is currently redesigning the internal operational flow for 'Parts Registration' and 'Intake Processing', **logic modifications and field structure changes may occur** once the process is finalized.

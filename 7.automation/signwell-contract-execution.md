@@ -2,6 +2,10 @@
 
 This section covers the automation flow where, upon a Partner (Ambassador, Shop, Individual) completing a signature on a SignWell contract, the document is automatically archived in the Airtable database and a notification is sent to the internal team.
 
+![SignWell contract execution flow](../images/contractflow-1.webp)
+
+![SignWell contract execution flow - detailed](../images/contractflow-2.webp)
+
 ### 1. Implemented Automation Flow
 The functionality demonstrated in the video covers the process: **[SignWell Signature Completed → Auto-Classification by Partner Type (Path) → Airtable Contract Archiving & Mapping → Slack Notification]**.
 

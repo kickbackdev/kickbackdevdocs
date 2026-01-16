@@ -9,6 +9,8 @@ This index is the top level for multiple processes (e.g., Contract Automation, S
 
 This manual is the umbrella guide for each automation stream, organized by the operational lifecycle.
 
+![Automation lifecycle overview](images/overview.webp)
+
 ### 1. Intake & Offer
 * **[Parts Intake & Offer Automation](7.automation/parts-intake.md)** *Covers the flow from Consignor submission, Price proposal, to Offer acceptance.*
 
