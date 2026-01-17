@@ -9,7 +9,7 @@ The functionality demonstrated in the current video covers the process: **[Intak
 
 #### Parts Inquiry Submission
 * When a consignor submits part details (including photos) via the Airtable Form, a record is automatically created in the `Parts Inquiries` table.
-* **Parts Inquiry Submission Form:** https://airtable.com/app40FhuAF7dShHSy/pagkSTLKUgqffRmOE/form
+* **Parts Inquiry Submission Form:** [Open form](https://airtable.com/app40FhuAF7dShHSy/pagkSTLKUgqffRmOE/form)
 
 #### Proposed Floor Price Entry & Sending Approval
 * After internal review, an admin enters the amount in the `Proposed Floor Price` field of the corresponding record.
@@ -22,7 +22,7 @@ The functionality demonstrated in the current video covers the process: **[Intak
 #### Consignor Decision (Response Collection)
 * When the consignor clicks a link in the email, an Airtable Form opens with the part information and response value (`Accepted`/`Declined`) already pre-filled.
 * The consignor can submit their decision by simply clicking the submit button without needing to log in.
-* **Parts Response Collection Form:** https://airtable.com/app40FhuAF7dShHSy/pagZY9DIx3DSKzx2C/form
+* **Parts Response Collection Form:** [Open form](https://airtable.com/app40FhuAF7dShHSy/pagZY9DIx3DSKzx2C/form)
 
 #### Status Synchronization
 * Immediately upon form submission, the status value of the original data is automatically updated to `Accepted` or `Declined`.
