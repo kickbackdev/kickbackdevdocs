@@ -235,6 +235,12 @@ You can watch the video and follow along with the timestamps below.
     - `Payout Eligibility Date` is today or earlier.
   - Matching sales are picked up and queued for payout processing.
 
+**Screenshot (start signal):**  
+![Sales table showing a new sale with `Payout Status` set to `Payable`.](../images/airtable-payout-sales-payable.png)
+
+**Screenshot (automation picked up):**  
+![Sales row updated to `Processing` after the automation begins.](../images/airtable-payout-sales-processing.png)
+
 ---
 
 ## 2. Creating a Settlement Batch (00:31 – 00:37)
@@ -247,6 +253,9 @@ You can watch the video and follow along with the timestamps below.
   - `Status` is set to **`Running`**.
 - **Meaning:**
   - “All payouts generated from this run will be grouped under this batch,” making it easier to track, audit, and reconcile later.
+
+**Screenshot (new settlement batch record):**  
+![Settlement batch record with `Status` set to `Running` and linked sales.](../images/airtable-payout-settlement-batch-running.png)
 
 ---
 
@@ -268,6 +277,12 @@ You can watch the video and follow along with the timestamps below.
   - Even though the contract (SignWell) does not show referral info yet, all referral payouts you see here are derived from the Airtable configuration.
   - Always rely on Airtable relationships and commission rules when validating referral payouts.
 
+**Screenshot (payout records generated):**  
+![Payouts table showing multiple payout records with a new payout highlighted.](../images/airtable-payouts-table-generated.png)
+
+**Screenshot (single payout record details):**  
+![Payout record showing the sale link, payee, payout amount, commission type, and batch.](../images/airtable-payout-record-detail.png)
+
 ---
 
 ## 4. Finalizing Payout Data and Sending Transfers (01:04 – 01:10)
@@ -283,9 +298,18 @@ You can watch the video and follow along with the timestamps below.
     - `Payee` → Stripe Connected Account ID
     - `Payout Amount` → Transfer amount
   - Manually create transfers in Stripe (unless Stripe automation is enabled).
+
+**Screenshot (today payouts view):**  
+![Filtered payouts view with the records you are about to pay.](../images/airtable-payouts-today-view.png)
+
+**Screenshot (payee details in Partners):**  
+![Partner record showing the `Stripe Connected Account ID`.](../images/airtable-payout-partner-stripe-connected-id.png)
 - **After transfer:**
   - Mark the sale as `Paid` in `Sales`.
   - Optionally, mark individual payout records as `Paid` or `Completed` if your schema supports it.
+
+**Screenshot (mark sale as Paid):**  
+![Sales table showing the `Payout Status` dropdown with the `Paid` option.](../images/airtable-payout-sales-mark-paid.png)
 
 ---
 
