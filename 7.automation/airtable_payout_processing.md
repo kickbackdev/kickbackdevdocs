@@ -108,6 +108,85 @@ After all related Stripe transfers are successfully sent:
 
 ---
 
+## Manual payouts in Stripe (no-code)
+
+This section explains how to send money using the Stripe Dashboard after Airtable generates `Payouts`.
+
+### What you need from Airtable
+
+From each `Payouts` record:
+
+- **Payee → Stripe Connected Account ID** (format like `acct_...`)
+- **Payout Amount → Transfer amount**
+- (Recommended) **Settlement Batch ID / Payout Record ID** (for a transfer note/group)
+
+### Before you send
+
+- Confirm the payout record is **Status = Payable**
+- Confirm the Payee has a valid **Stripe Connected Account ID**
+- Confirm your **platform Stripe balance** has enough funds for the transfer
+
+### Step-by-step: Create a Transfer in Stripe Dashboard
+
+1) **Open Stripe Dashboard**
+
+2) **Find the connected account (fastest: search by `acct_...`)**
+   - Use the Dashboard search (press `/` or click the search bar)
+   - Paste the **Connected Account ID** (example: `acct_1ABC...`) and open the result
+
+   (Alternative: search by the connected account’s **name / email / metadata**)
+
+3) **Send funds (create the transfer)**
+   - Go to **Balances → Transfers → New**
+   - **Destination**: select the connected account (or paste the `acct_...` if the UI allows)
+   - **Amount**: enter the **Payout Amount** (match Airtable exactly)
+   - **Currency**: confirm it matches your operating currency (commonly USD)
+   - (Optional but recommended) add a note / transfer group like:
+     `settlement_batch_YYYY-MM-DD | payout_rec_XXXX`
+
+4) **Create transfer**
+   - Click **Create transfer** / **Send** to execute
+
+5) **Update Airtable**
+   - Mark the payout (and/or sale) as **Paid**
+   - (Recommended) store the **Stripe Transfer ID** in Airtable for audit/reconciliation
+
+### Stripe Dashboard screenshots (official)
+
+**A. Connected account → Balance section**  
+![Connected account balance section](https://b.stripecdn.com/docs-statics-srv/assets/dashboard-account-payout.94e15f1be4a11a54d18fc305433e50f4.png)
+
+**B. Send funds dialog (manual transfer)**  
+![Send funds dialog](https://b.stripecdn.com/docs-statics-srv/assets/send-funds.5c34a4e2e038c3a5343c7aa165eb3787.png)
+
+Source: https://docs.stripe.com/no-code/payout?locale=en-GB ([Stripe Docs][4])
+
+Note: Stripe also documents the **Balances → Transfers → New** path in text, but that page does not include a matching screenshot. ([Stripe Docs][5])
+
+### Troubleshooting
+
+- **No results when searching `acct_...`**
+  - You might be in the wrong mode (**Test vs Live**), or the account isn’t connected to this platform.
+
+- **Transfer fails due to balance**
+  - Top up / wait for funds to settle into your **platform balance**, then retry.
+
+References (Stripe official):
+
+* Dashboard search supports **object identifiers** to jump directly to the object (use `acct_...`). ([Stripe Docs][1])
+* Stripe Connect (Dashboard): **Balances → Transfers tab → New** to send funds to connected accounts; funds come from your **platform balance**. ([Stripe Docs][2])
+* Connected account IDs typically start with the **`acct_` prefix**. ([Stripe Docs][3])
+* "Pay out to people" (No-code payout) page includes the official Dashboard screenshots above. ([Stripe Docs][4])
+* "Manage individual accounts" describes the transfers path in text without a screenshot. ([Stripe Docs][5])
+
+[1]: https://docs.stripe.com/dashboard/search?utm_source=chatgpt.com "Perform searches in the Dashboard | Stripe Documentation"
+[2]: https://docs.stripe.com/connect/dashboard/managing-individual-accounts?utm_source=chatgpt.com "Manage individual accounts | Stripe Documentation"
+[3]: https://docs.stripe.com/api/connected-accounts?utm_source=chatgpt.com "Connected Accounts | Stripe API Reference"
+[4]: https://docs.stripe.com/no-code/payout?locale=en-GB "Pay out to people (No-code payout) | Stripe Documentation"
+[5]: https://docs.stripe.com/connect/dashboard/managing-individual-accounts "Manage individual accounts | Stripe Documentation"
+
+---
+
 ## 🚨 Troubleshooting Guide
 
 ### Zapier Is Not Running or Payouts Are Not Generated
