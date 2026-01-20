@@ -69,7 +69,7 @@ The current logic focuses on internal Airtable data processing, and interface in
 | :--- | :--- | :--- |
 | **00:00 ~ 00:13** | **Check Data Structure** | Confirm the basic structure of the `Parts` table (QR Code, Status, etc.) and the auto-linking of `Owner Partner Type`. |
 | **00:14 ~ 00:19** | **Timestamp Automation** | **Clicking the `Intake Scan` checkbox** automatically records the current time in the `Intake Scanned At` field on the right. |
-| **00:20 ~ 00:26** | **Set Warehouse** | Change the part's `Current Warehouse` from 'VA-FX-Sub-03' (Suburban) to **'MD-PG-Met-02' (Metropolitan)**. |
+| **00:20 ~ 00:26** | **Set Warehouse** | Change the part's `Current Warehouse` to **'MD-PG-Met-02' (Metropolitan)**. |
 | **00:27 ~ 00:33** | **Routing Logic Trigger** | Since the Partner Type is **Individual** and the Warehouse is **Met**, the `Transfer Needed?` field automatically calculates to **1 (True)**. |
 | **00:34 ~ 00:43** | **Create Transfer Request** | Navigate to the `Warehouse Transfers` tab. Confirm that a **new Transfer record (Status: Planned)** has been created by the triggered logic. |
 | **00:50 ~ 00:58** | **Complete Transfer** | Change the status of the created Transfer to **`Received`**. Returning to the Parts tab, confirm that `Current Warehouse` has updated to the destination warehouse. |
