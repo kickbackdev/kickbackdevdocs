@@ -1,5 +1,7 @@
 # Kickback Dev Docs
 
+![Kickback logo](images/logokick.avif)
+
 Central documentation hub for Kickback operations.  
 This index is the top level for multiple processes (e.g., Contract Automation, Settlement) and points to the detailed docs inside each process.
 

@@ -1,5 +1,7 @@
 ## 1. Parts Intake & Offer Automation
 
+![Kickback logo](../images/logokick.avif)
+
 This section covers the automation flow from the Consignor submitting part details, Kickback proposing a price, to the Consignor accepting the offer.
 
 ![Parts intake and offer flow](../images/part-intake.webp)

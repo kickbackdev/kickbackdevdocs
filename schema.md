@@ -1,5 +1,7 @@
 # Airtable-based Central Data Architecture
 
+![Kickback logo](images/logokick.avif)
+
 Automation quality depends on schema quality. Airtable serves as the **single source of truth**, so design a robust relational schema that mirrors all business rules.
 
 The **“Kickback Operations”** base links partners, parts, sales, settlements, and subscriptions to eliminate duplication and enable reliable finance reporting and automation logic.

@@ -1,5 +1,7 @@
 # Airtable Payout Processing – Complete Operations Manual
 
+![Kickback logo](../images/logokick.avif)
+
 ## 📋 Prerequisites
 
 Before you start any payout processing:

@@ -1,5 +1,7 @@
 # Kickback Dev Docs
 
+![Kickback logo](images/logokick.avif)
+
 Central documentation hub for Kickback operations.  
 This index is the top level for multiple processes (e.g., Contract Automation, Settlement) and points to the detailed docs inside each process.
 
@@ -12,9 +14,9 @@ This manual is the umbrella guide for each automation stream, organized by the o
 ![Automation lifecycle overview](images/overview.webp)
 
 ### Ops Links
-* **[Ops Airtable Base](https://airtable.com/app40FhuAF7dShHSy?)**
-* **[SignWell → Airtable Automation (Zapier)](https://zapier.com/editor/330003026/published)**
-* **[Settlement Automation (Zapier)](https://zapier.com/editor/339379457/published)**
+* **<a href="https://airtable.com/app40FhuAF7dShHSy?" target="_blank" rel="noopener noreferrer">Ops Airtable Base</a>**
+* **<a href="https://zapier.com/editor/330003026/published" target="_blank" rel="noopener noreferrer">SignWell → Airtable Automation (Zapier)</a>**
+* **<a href="https://zapier.com/editor/339379457/published" target="_blank" rel="noopener noreferrer">Settlement Automation (Zapier)</a>**
 
 ### 1. Intake & Offer
 * **[Parts Intake & Offer Automation](7.automation/parts-intake.md)** *Covers the flow from Consignor submission, Price proposal, to Offer acceptance.*

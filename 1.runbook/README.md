@@ -1,5 +1,7 @@
 # KKB-F1-Contract-Register-[dev] Operations Manual (Runbook)
 
+![Kickback logo](../images/logokick.avif)
+
 ## 1. Overview
 
 ### System Purpose

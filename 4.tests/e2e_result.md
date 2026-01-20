@@ -1,5 +1,7 @@
 ### Test Scenarios
 
+![Kickback logo](../images/logokick.avif)
+
 | Case ID | Template Name                         | Test Time      | Status          | Airtable Record Created?              | Slack Alert Received? | Notes                                                  |
 | ------- | ------------------------------------- | -------------- | --------------- | ------------------------------------- | --------------------- | ------------------------------------------------------ |
 | S1      | Kickback - Individual Parts Agreement | 25.11.08 15:55 | Success         | Partners (ID: …)<br>Contracts (ID: …) | #automation-alerts    | Partner Type = Individual 확인                           |

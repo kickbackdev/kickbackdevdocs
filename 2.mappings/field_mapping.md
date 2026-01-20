@@ -1,5 +1,7 @@
 ### Partner
 
+![Kickback logo](../images/logokick.avif)
+
 | Target_Field            | Source_System | Source_Field_or_Value    | Transformation_Logic_or_Step           | Notes_or_Path                       |
 | ----------------------- | ------------- | ------------------------ | -------------------------------------- | ----------------------------------- |
 | Partner Name            | SignWell      | signer_name              | (None)                                 | Common                              |

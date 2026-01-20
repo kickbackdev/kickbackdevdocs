@@ -1,5 +1,7 @@
 ### **Test Video Link**
 
+![Kickback logo](../images/logokick.avif)
+
 https://drive.google.com/file/d/1RyKxpfXDUvHXmZNHFH4R2efCxi_I2Z_0/view?usp=share_link
 
 ### **Visual Walkthrough: Automated Settlement & Payout System**
