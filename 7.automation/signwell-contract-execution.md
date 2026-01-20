@@ -1,6 +1,6 @@
 ## 2. SignWell Contract Execution & System Sync
 
-![Kickback logo](../images/logokick.avif)
+<img src="../images/logokick.avif" alt="Kickback logo" width="120" />
 
 This section covers the automation flow where, upon a Partner (Ambassador, Shop, Individual) completing a signature on a SignWell contract, the document is automatically archived in the Airtable database and a notification is sent to the internal team.
 

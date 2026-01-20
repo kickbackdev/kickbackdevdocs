@@ -1,6 +1,6 @@
 ### **Test Video Link**
 
-![Kickback logo](../images/logokick.avif)
+<img src="../images/logokick.avif" alt="Kickback logo" width="120" />
 
 https://drive.google.com/file/d/1RyKxpfXDUvHXmZNHFH4R2efCxi_I2Z_0/view?usp=share_link
 

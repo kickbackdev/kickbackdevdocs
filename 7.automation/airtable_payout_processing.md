@@ -1,6 +1,6 @@
 # Airtable Payout Processing – Complete Operations Manual
 
-![Kickback logo](../images/logokick.avif)
+<img src="../images/logokick.avif" alt="Kickback logo" width="120" />
 
 ## 📋 Prerequisites
 

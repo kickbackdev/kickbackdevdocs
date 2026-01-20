@@ -1,6 +1,6 @@
 # Airtable-based Central Data Architecture
 
-![Kickback logo](images/logokick.avif)
+<img src="images/logokick.avif" alt="Kickback logo" width="120" />
 
 Automation quality depends on schema quality. Airtable serves as the **single source of truth**, so design a robust relational schema that mirrors all business rules.
 

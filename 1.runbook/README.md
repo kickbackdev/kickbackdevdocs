@@ -1,6 +1,6 @@
 # KKB-F1-Contract-Register-[dev] Operations Manual (Runbook)
 
-![Kickback logo](../images/logokick.avif)
+<img src="../images/logokick.avif" alt="Kickback logo" width="120" />
 
 ## 1. Overview
 

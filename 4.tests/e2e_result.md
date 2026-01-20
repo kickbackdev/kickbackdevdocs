@@ -1,6 +1,6 @@
 ### Test Scenarios
 
-![Kickback logo](../images/logokick.avif)
+<img src="../images/logokick.avif" alt="Kickback logo" width="120" />
 
 | Case ID | Template Name                         | Test Time      | Status          | Airtable Record Created?              | Slack Alert Received? | Notes                                                  |
 | ------- | ------------------------------------- | -------------- | --------------- | ------------------------------------- | --------------------- | ------------------------------------------------------ |

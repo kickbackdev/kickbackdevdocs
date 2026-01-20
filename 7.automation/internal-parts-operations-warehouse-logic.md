@@ -1,6 +1,6 @@
 ## 3. Internal Parts Operations & Warehouse Logic
 
-![Kickback logo](../images/logokick.avif)
+<img src="../images/logokick.avif" alt="Kickback logo" width="120" />
 
 This section covers the operational system managing the process from part arrival at the warehouse to **[Intake → Cleaning/Photos → Shelving → Listing]** using Airtable checkboxes and automation logic.
 

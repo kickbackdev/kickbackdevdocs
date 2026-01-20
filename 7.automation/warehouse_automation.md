@@ -1,6 +1,6 @@
 # Airtable Warehouse & Automation Design (Kickback Operations)
 
-![Kickback logo](../images/logokick.avif)
+<img src="../images/logokick.avif" alt="Kickback logo" width="120" />
 
 This document describes the Airtable schema, warehouse codes, automations, and QR label design used in the **Kickback Operations** base.  
 It complements the KKB-F1 Contract Register runbook and focuses on warehouse routing, SLAs, and parts-level status tracking.

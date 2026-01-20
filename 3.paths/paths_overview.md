@@ -1,6 +1,6 @@
 # KKB-F1-Contract-Register-[dev] Zap Path Overview
 
-![Kickback logo](../images/logokick.avif)
+<img src="../images/logokick.avif" alt="Kickback logo" width="120" />
 
 This document outlines the common utility steps and the four (4) main branches (Paths) of the Zap, following the SignWell trigger.
 

@@ -1,6 +1,6 @@
 # Kickback Platform Automation Operations Manual
 
-![Kickback logo](../images/logokick.avif)
+<img src="../images/logokick.avif" alt="Kickback logo" width="120" />
 
 > **Audience:** Operations lead, settlement team, partner support team  \
 > **Scope:** Partner onboarding, inventory intake, settlement/subscription/refund automations

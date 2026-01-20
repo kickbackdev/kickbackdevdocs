@@ -1,6 +1,6 @@
 ### Partner
 
-![Kickback logo](../images/logokick.avif)
+<img src="../images/logokick.avif" alt="Kickback logo" width="120" />
 
 | Target_Field            | Source_System | Source_Field_or_Value    | Transformation_Logic_or_Step           | Notes_or_Path                       |
 | ----------------------- | ------------- | ------------------------ | -------------------------------------- | ----------------------------------- |
