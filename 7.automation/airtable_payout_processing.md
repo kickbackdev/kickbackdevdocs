@@ -2,417 +2,446 @@
 
 <img src="../images/logokick.avif" alt="Kickback logo" width="120" />
 
-## 📋 Prerequisites
+# Kickback Manual Settlement & Stripe Payout Operations Guide
 
-Before you start any payout processing:
+Version: v1.2
 
-- Access to the Airtable base: **“Kickback Operations”**
-- Edit permissions for the following tables:
-  - `Sales`
-  - `Payouts`
-  - `Partners`
-- Access to the **Stripe Dashboard** (required for sending transfers)
-- (Important limitation) **SignWell contract template**:
-  - The current SignWell agreement template does **not** yet have a dedicated field to capture **Referral information**.
-  - For now, all referral relationships and referral-based commissions must be managed and recorded **only in Airtable** (e.g., in the `Partners` table and `Payouts` logic), not in the contract form itself.
-  - Updating the SignWell template to include a “Referral” field is a pending task for the ops/legal team.
+Purpose: This guide explains how to confirm “who to pay and how much” in Airtable, execute manual payouts in the Stripe Dashboard, and accurately close out records in Airtable.
 
 ---
 
-## 🔄 Step-by-Step Guide to Process Payouts
+## 1) Settlement policy (rules) — non-negotiables
 
-### Step 1: Create a Sales Record
+### 1-1. When an item becomes “included in settlement”
 
-**Location:** `Sales` table
+* A sale becomes eligible only after **Sales.`Payout Eligibility Date` (= Sale Date + 14 days)** has passed.
+* In other words, **do not settle immediately after a sale.** (There is a 14-day waiting period for refunds/returns/disputes.)
 
-1. Go to the **`Sales`** table.
-2. Click **“+ Add record”**.
-3. Fill in the required fields:
-   - **Part Sold**: Select the sold part from the dropdown.
-   - **Gross Sale Price**: Enter the sale price as a number (e.g., `100.00`).
-   - **Payout Status**: Set to **`Payable`**.
-   - **Payout Eligibility Date**: Enter **today’s date** or the desired date when the sale becomes eligible for payout.
-4. Save the record.
+### 1-2. Fixed “actual payout days”
 
-> Conceptually, setting `Payout Status = Payable` is the “start signal” for the automation.
+* **Shop (monthly)**: send payouts on the **1st of every month**
+* **Individual / Ambassador / Referral Partner (twice per month)**: pay on **bi-weekly Fridays**
+
+  * Operating rule: **the “first Friday” of each month + the Friday 14 days after that (= the second payout day in that month)**
+  * This is **not** “every Friday.” It is **two Fridays per month**.
 
 ---
 
-### Step 2: Wait for Zapier Automation
+## 2) Terms (as used in day-to-day ops)
 
-1. Zapier either:
-   - Runs automatically at a scheduled time (e.g., every morning at 9:00), or  
-   - Can be triggered manually if you have permission to run the Zap.
-2. In the **`Sales`** table, watch the `Payout Status` of the record you just created:
-   - `Payable` → `Processing` means Zapier has picked it up and is working.
-   - **Do not edit** the sale while status is `Processing`.
-3. When processing is complete:
-   - New records will appear in the **`Payouts`** table.
-   - Each commission type (Owner Share, Referral, Ambassador, etc.) will show up as a **separate payout record**.
+* **Sale (Sales table)**: a single sales record
+* **Payout (Payouts table)**: one line item that represents “who gets how much”
 
----
+  * One Sale can generate multiple Payout lines (Owner, Shop, Ambassador, etc.)
+* **Settlement Batch (Settlement Batches table)**: one settlement run (a bundle)
 
-### Step 3: Review Generated Payout Records
-
-**Location:** `Payouts` table
-
-1. Go to the **`Payouts`** table.
-2. Switch to the **“Today payouts”** grid view (or equivalent operational view).
-3. Filter or visually check for records where **`Status = Payable`**.
-4. For each payout record, verify:
-   - **Payee**: The partner or person who should receive the payout.
-   - **Payout Amount**: The amount to be transferred.
-   - **Commission Type**: e.g., `Owner Share`, `Referral Fee`, `Ambassador`, etc.
-   - **Sale**: Linked sale record for reference.
-
-> Note on referrals:  
-> If the **Commission Type** is `Referral` but the underlying relationship is not documented in SignWell (there is no referral field yet), confirm that it is correctly captured in Airtable (e.g., partner’s referrer, referral program rule) before proceeding.
+  * Used to group and manage multiple Payouts together
+* **Payee**: the recipient (a record in the Partners table)
 
 ---
 
-### Step 4: Check Stripe Account Info and Send Transfers
+## 3) Status definitions — to prevent operational confusion
 
-Repeat this for **each** payout record that needs to be paid.
+### 3-1. `Payouts.Status` (payout line status)
 
-1. From a payout record in **`Payouts`**, click the **`Payee`** link.
-2. You will be taken to the corresponding partner record in the **`Partners`** table.
-3. Locate and copy the **`Stripe Connected Account ID`** field.
-   - If this field is empty:
-     - **Do not** attempt to pay that payout yet.
-     - Contact the partner and request that they complete **Stripe Express** onboarding.
-     - Update the `Stripe Connected Account ID` field once onboarding is complete.
-4. Open the **Stripe Dashboard** in a separate browser tab.
-5. Navigate to **Connect → Transfers**.
-6. Click **“Create transfer”**.
-7. Fill in the transfer details:
-   - **Destination**: Paste the **Stripe Connected Account ID**.
-   - **Amount**: Enter the **Payout Amount** (match Airtable exactly, including cents).
-   - **Currency**: `USD` (or your operating currency).
-   - **Transfer group** (optional but recommended): Enter a payout batch ID or note (e.g., `settlement_batch_2025-12-03`).
-8. Click **“Create transfer”** to execute the transfer.
+* **Payable**: payout line exists, not yet sent (waiting)
+* **Processing**: selected for the current payout run (ready to send)
+* **Paid**: actually sent in Stripe (change to this only after sending)
+* **On Hold**: cannot be sent right now (blocked due to issues)
+* **Error**: processing error (needs investigation)
 
-> Tip: It’s often easiest to process payouts grouped by **Settlement Batch** or by date to minimize errors.
+### 3-2. Processing vs On Hold (the most confusing part)
 
----
+* **Processing = “ready to send”**
 
-### Step 5: Mark Payouts as Paid in Airtable
+  * You can send it in Stripe now.
+* **On Hold = “cannot send”**
 
-After all related Stripe transfers are successfully sent:
+  * You must resolve the `Hold Reason` first.
+  * Examples: Stripe account not ready, not Verified, missing Connected Account ID, etc.
 
-1. Go back to the **`Sales`** table.
-2. Find the sale(s) that have now been fully paid out.
-3. Update:
-   - **`Payout Status`**: Change from `Processing` → **`Paid`**.
-   - **`Payout Date`**: Set to today’s date (the actual transfer date).
-4. Save the changes.
-
-> Once marked as `Paid`, this sale is considered fully settled in the system.
+> Summary: **Processing is the “send queue,” On Hold is “not payable.”**
 
 ---
 
-## Manual payouts in Stripe (no-code)
+## 4) Does `Next Payout Date` update automatically?
 
-This section explains how to send money using the Stripe Dashboard after Airtable generates `Payouts`.
+Yes. **`Next Payout Date` is calculated from TODAY to show the next scheduled payout day.**
 
-### What you need from Airtable
+So **after a date passes, it automatically moves to the next payout date.**
 
-From each `Payouts` record:
+* For Shop: next **1st**
+* For Bi-Weekly: **first Friday / +14 days Friday / (if both passed) next month’s first Friday**
 
-- **Payee → Stripe Connected Account ID** (format like `acct_...`)
-- **Payout Amount → Transfer amount**
-- (Recommended) **Settlement Batch ID / Payout Record ID** (for a transfer note/group)
+### Then what do we update after sending?
 
-### Before you send
+* **Usually you do not touch `Next Payout Date`** (it auto-advances).
+* As the proof that money was sent:
 
-- Confirm the payout record is **Status = Payable**
-- Confirm the Payee has a valid **Stripe Connected Account ID**
-- Confirm your **platform Stripe balance** has enough funds for the transfer
+  * It’s recommended to update **Partners.`Last Payout Date` to the send date**.
 
-### Step-by-step: Create a Transfer in Stripe Dashboard
-
-1) **Open Stripe Dashboard**
-
-2) **Find the connected account (fastest: search by `acct_...`)**
-   - Use the Dashboard search (press `/` or click the search bar)
-   - Paste the **Connected Account ID** (example: `acct_1ABC...`) and open the result
-
-   (Alternative: search by the connected account’s **name / email / metadata**)
-
-3) **Send funds (create the transfer)**
-   - Go to **Balances → Transfers → New**
-   - **Destination**: select the connected account (or paste the `acct_...` if the UI allows)
-   - **Amount**: enter the **Payout Amount** (match Airtable exactly)
-   - **Currency**: confirm it matches your operating currency (commonly USD)
-   - (Optional but recommended) add a note / transfer group like:
-     `settlement_batch_YYYY-MM-DD | payout_rec_XXXX`
-
-4) **Create transfer**
-   - Click **Create transfer** / **Send** to execute
-
-5) **Update Airtable**
-   - Mark the payout (and/or sale) as **Paid**
-   - (Recommended) store the **Stripe Transfer ID** in Airtable for audit/reconciliation
-
-### Stripe Dashboard screenshots (official)
-
-**A. Connected account → Balance section**  
-![Connected account balance section](https://b.stripecdn.com/docs-statics-srv/assets/dashboard-account-payout.94e15f1be4a11a54d18fc305433e50f4.png)
-
-**B. Send funds dialog (manual transfer)**  
-![Send funds dialog](https://b.stripecdn.com/docs-statics-srv/assets/send-funds.5c34a4e2e038c3a5343c7aa165eb3787.png)
-
-Source: https://docs.stripe.com/no-code/payout?locale=en-GB ([Stripe Docs][4])
-
-Note: Stripe also documents the **Balances → Transfers → New** path in text, but that page does not include a matching screenshot. ([Stripe Docs][5])
-
-### Troubleshooting
-
-- **No results when searching `acct_...`**
-  - You might be in the wrong mode (**Test vs Live**), or the account isn’t connected to this platform.
-
-- **Transfer fails due to balance**
-  - Top up / wait for funds to settle into your **platform balance**, then retry.
-
-References (Stripe official):
-
-* Dashboard search supports **object identifiers** to jump directly to the object (use `acct_...`). ([Stripe Docs][1])
-* Stripe Connect (Dashboard): **Balances → Transfers tab → New** to send funds to connected accounts; funds come from your **platform balance**. ([Stripe Docs][2])
-* Connected account IDs typically start with the **`acct_` prefix**. ([Stripe Docs][3])
-* "Pay out to people" (No-code payout) page includes the official Dashboard screenshots above. ([Stripe Docs][4])
-* "Manage individual accounts" describes the transfers path in text without a screenshot. ([Stripe Docs][5])
-
-[1]: https://docs.stripe.com/dashboard/search?utm_source=chatgpt.com "Perform searches in the Dashboard | Stripe Documentation"
-[2]: https://docs.stripe.com/connect/dashboard/managing-individual-accounts?utm_source=chatgpt.com "Manage individual accounts | Stripe Documentation"
-[3]: https://docs.stripe.com/api/connected-accounts?utm_source=chatgpt.com "Connected Accounts | Stripe API Reference"
-[4]: https://docs.stripe.com/no-code/payout?locale=en-GB "Pay out to people (No-code payout) | Stripe Documentation"
-[5]: https://docs.stripe.com/connect/dashboard/managing-individual-accounts "Manage individual accounts | Stripe Documentation"
+    * Currently, when you set Payouts `Status = Paid`, **Partners.`Last Payout Date` is auto-updated**.
+  * And for Payouts, closing means: **set `Paid` + record `Stripe Transfer ID`**.
 
 ---
 
-## 🚨 Troubleshooting Guide
+## 5) Commission rules (`Commission Type`) — why money becomes multiple lines
 
-### Zapier Is Not Running or Payouts Are Not Generated
+When a Sale becomes eligible, Payouts may create the following lines depending on the situation.
 
-- **Check the Sale Record:**
-  - `Payout Status` must be **`Payable`**.
-  - `Payout Eligibility Date` must be **today or in the past**.
-- **If conditions are incorrect:**
-  - Fix the fields and wait for the next scheduled run (e.g., 9:00 AM), or
-  - Manually re-run the Zap if you have access.
+### 5-1. Owner Share (seller / owner share)
 
----
+Based on **Gross Sale Price**:
 
-### Stripe Connected Account ID Is Missing
+* **$250 or less**: Owner **60%**
+* **$500 or less**: Owner **65%**
+* **Over $500**: Owner **70%**
 
-- **In the `Partners` table:**
-  - Check the partner’s record for a **`Stripe Connected Account ID`**.
-- **If empty or invalid:**
-  - Ask the partner to complete Stripe Express onboarding (using your standard onboarding link).
-  - Once they finish, update the `Stripe Connected Account ID` field.
-  - Only then proceed with the corresponding payouts.
+### 5-2. Shop Referral Fee (shop share)
 
----
+* Condition: **Individual sale + attributed to a Shop**
+* **5%**
 
-### Payout Amount Is Zero or Looks Wrong
+### 5-3. Ambassador share
 
-- Possible reasons:
-  - Incorrect **`Gross Sale Price`** on the sale record.
-  - Wrong **Part Sold** (with different commission settings).
-  - A bug in the commission calculation logic.
-- **Actions:**
-  - Double-check the `Part Sold` and `Gross Sale Price` on the `Sales` record.
-  - Verify internal commission rules (owner share %, referral %, ambassador %, etc.).
-  - If needed, escalate to the person responsible for the Airtable/Zapier calculation logic.
+* **Ambassador L1 = 5%** (direct attribution)
+* **Ambassador L2 = 5%** (attributed via Shop)
+
+### 5-4. Referral Partner Fee (referral partner share)
+
+* **3%**
+* However, for a **specific Owner–Referrer pair, it is paid only once**
+
+  * Prevent duplicates with `Referral One-time Key`
+
+### 5-5. Clawback
+
+* Used when you need a **negative settlement** due to refund/adjustment, etc.
 
 ---
 
-### Referral Information Is Missing from Contracts (SignWell Limitation)
+## 6) End-to-end process — “when / what / where”
 
-- **Current limitation:**
-  - The SignWell contract template **does not** include a dedicated field or section for **Referral** information (e.g., who referred whom, referral code, referral tier).
-- **Impact:**
-  - Legal contracts do not currently show the referral linkage that is used for calculating referral commissions.
-  - All referral relationships are instead maintained inside **Airtable** (e.g., partner-to-referrer mapping).
-- **Operational workaround:**
-  - Ensure referral relationships are always:
-    - Captured in Airtable (`Partners` table and/or `Payouts` logic), and
-    - Confirmed before approving referral payouts.
-- **To-do (for legal/ops):**
-  - Update the SignWell contract template to add:
-    - A “Referral name/ID” field, or
-    - A “Referral program details” section.
-  - Once added, align Airtable fields and contract fields so both reflect the same referral data.
+### A. Ongoing (daily): Sales entry & checks
 
----
+1. **Enter the sale in the Sales table**
 
-## 🤖 Automation Options (For Reference)
+   * Required checks:
 
-There is a separate Zap that can automate the **Stripe transfer** step.
+     * `Sale Date`
+     * `Gross Sale Price`
+     * `Part Sold`
+     * `Refund Status` (usually None)
+2. **Confirm `Payout Eligibility Date`**
 
-If the automated Stripe payout Zap is enabled:
-
-- Steps **4–5** (Stripe transfer + updating Sales status to `Paid`) can be automated.
-- Operators will typically only need to:
-  - Create sales (`Sales` table)
-  - Verify payout records (`Payouts` table)
-  - Monitor for errors
-- Manual intervention is required only when:
-  - Stripe transfers fail
-  - Connected Account IDs are missing
-  - Referral data is inconsistent or missing
-
-**How to enable:**  
-Ask the engineering or automation owner to turn on the Stripe payout Zap and confirm the error-handling rules.
+   * Auto-calculated (Sale Date + 14 days)
+   * Do not send payouts before this date.
 
 ---
 
-## ✅ Payout Run Checklist
+### B. Settlement prep: create “payout candidates” (Airtable)
 
-Use this checklist for every payout run:
+When the settlement automation runs every morning at 9 AM:
 
-- [ ] Sales records are correctly created (Part, Gross Sale Price, Payout Status, Eligibility Date).
-- [ ] `Payout Status` has moved from `Payable` → `Processing` → payouts are generated.
-- [ ] All required `Payouts` records (Owner Share, Referral, Ambassador, etc.) exist.
-- [ ] For each **Payee**, a valid **Stripe Connected Account ID** is present in `Partners`.
-- [ ] Payout amounts match your commission rules and look correct.
-- [ ] Stripe transfers have been successfully created and sent.
-- [ ] `Payout Status` in `Sales` is updated to **`Paid`** and `Payout Date` is set.
-- [ ] For any **Referral** payouts:
-  - [ ] Referral relationship is clearly recorded in Airtable.
-  - [ ] You understand that the SignWell contract currently does **not** show referral info and this is a known limitation.
+* Eligible Sales generate Payouts, and
+* They are grouped into a Settlement Batch.
+
+The operator’s key task: **select the correct set of recipients to pay today.**
 
 ---
 
-# 🎬 Video Walkthrough – Airtable Payout Automation Flow
+## Explanation of the 3 views in the Payouts table
 
-This section explains the same flow as shown in the screen recording  
-`화면 기록 2025-12-03 오후 4.40.46.mov`.
+### 1) Check Processing (“source of truth” view for executing payouts)
 
-You can watch the video and follow along with the timestamps below.
+**Purpose**
 
-<div style="max-width: 720px;">
-  <iframe
-    width="100%"
-    height="405"
-    src="https://www.youtube.com/embed/2dGNPOQHbag"
-    title="Automated Settlement & Payout System – Video Walkthrough"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    allowfullscreen>
-  </iframe>
-</div>
+This view shows **only the payouts that should actually be sent today**.
 
----
+On payout days (bi-weekly Friday / monthly 1st), operators open only this view and execute payouts.
 
-## 1. Creating the Sale and Starting the Payout Flow (00:00 – 00:30)
+**Filters (required)**
 
-- **Screen:** `Sales` table (sales records)
-- **What you see:** A new sale (e.g., **Sale ID 46**) has been added.
-- **Key field:** `Payout Status` is set to **`Payable`**.
-  - This acts as the **start signal** for the payout automation.
-- **System behavior:**
-  - The automation scans for sales where:
-    - `Payout Status = Payable`, and
-    - `Payout Eligibility Date` is today or earlier.
-  - Matching sales are picked up and queued for payout processing.
+* `Status = Processing`
+* `Is Payout Day? = 1`
 
-**Screenshot (start signal):**  
-![Sales table showing a new sale with `Payout Status` set to `Payable`.](../images/airtable-payout-sales-payable.png)
+  → Safety guard that keeps only partners whose payout day is today.
 
-**Screenshot (automation picked up):**  
-![Sales row updated to `Processing` after the automation begins.](../images/airtable-payout-sales-processing.png)
+**Grouping (recommended)**
+
+* Group by: `Payee`
+
+  → Shows Payee totals immediately, enabling **one consolidated payout per Payee** in Stripe.
+
+**Ops tips**
+
+* Before sending: check each Payee’s total in Check Processing
+* In Stripe: send **one consolidated payout per Payee**
+* After sending: set those payout lines to `Paid` and enter `Stripe Transfer ID`
 
 ---
 
-## 2. Creating a Settlement Batch (00:31 – 00:37)
+### 2) Today payouts (verification view for “records created today”)
 
-- **Screen:** `Settlement Batches` table
-- **System behavior:**
-  - When payout processing starts, the system creates a new **Settlement Batch** record.
-- **What you see:**
-  - A new batch row appears with today’s date.
-  - `Status` is set to **`Running`**.
-- **Meaning:**
-  - “All payouts generated from this run will be grouped under this batch,” making it easier to track, audit, and reconcile later.
+**Purpose**
 
-**Screenshot (new settlement batch record):**  
-![Settlement batch record with `Status` set to `Running` and linked sales.](../images/airtable-payout-settlement-batch-running.png)
+Used to confirm that today’s automation ran properly and created payout lines / linked batches.
 
----
+This is **not** for sending money; it is for checking payout generation.
 
-## 3. Auto-Calculating Detailed Payouts (00:38 – 01:03)
+**Filter**
 
-- **Screen:** `Payouts` table
-- **System behavior:**
-  - The system takes the gross sale amount (e.g., `$100`) and automatically splits it according to your commission rules.
-- **What you see:**
-  - For the sale (e.g., **Sale ID 56**), multiple payout records are created. Typical examples:
-    1. **Owner Share**: e.g., `$60.00` to the part owner.
-    2. **Ambassador / Referral**: additional commission to a referrer, if configured.
-- **Linking:**
-  - Each payout record is linked to:
-    - The appropriate **Settlement Batch**.
-    - The correct **Payee** (partner/person).
-    - The original **Sale**.
-- **Note on referrals in this context:**
-  - Even though the contract (SignWell) does not show referral info yet, all referral payouts you see here are derived from the Airtable configuration.
-  - Always rely on Airtable relationships and commission rules when validating referral payouts.
+* `created at is today`
 
-**Screenshot (payout records generated):**  
-![Payouts table showing multiple payout records with a new payout highlighted.](../images/airtable-payouts-table-generated.png)
+  → shows only payouts created today
 
-**Screenshot (single payout record details):**  
-![Payout record showing the sale link, payee, payout amount, commission type, and batch.](../images/airtable-payout-record-detail.png)
+**What to verify (checklist)**
+
+* Were payouts created today?
+* Are `Sale` / `Payee` links valid?
+* Is `Payout Batch` populated?
+* Are statuses classified as Processing / On Hold / Payable according to policy?
+
+**Abnormality triggers (investigate immediately)**
+
+* `Status = Error` exists (≥ 1)
+* Any payout with empty `Payout Batch`
+* Any payout with empty `Payee` or `Sale` link
+* On Hold spikes unusually compared to normal
 
 ---
 
-## 4. Finalizing Payout Data and Sending Transfers (01:04 – 01:10)
+### 3) Payee (dashboard / audit view for overall payout status)
 
-- **Screen:** `Payouts` table, then Stripe Dashboard.
-- **System behavior:**
-  - At this point, the system has completed all complex math:
-    - Who gets paid
-    - How much
-    - Which batch it belongs to
-- **Operator task (critical part):**
-  - Use the payout records as the **source of truth**:
-    - `Payee` → Stripe Connected Account ID
-    - `Payout Amount` → Transfer amount
-  - Manually create transfers in Stripe (unless Stripe automation is enabled).
+**Purpose**
 
-**Screenshot (today payouts view):**  
-![Filtered payouts view with the records you are about to pay.](../images/airtable-payouts-today-view.png)
+A Payee-level view to see all payout status over time.
 
-**Screenshot (payee details in Partners):**  
-![Partner record showing the `Stripe Connected Account ID`.](../images/airtable-payout-partner-stripe-connected-id.png)
-- **After transfer:**
-  - Mark the sale as `Paid` in `Sales`.
-  - Optionally, mark individual payout records as `Paid` or `Completed` if your schema supports it.
+Used more for **status monitoring / partner inquiries / audit**, not for sending.
 
-**Screenshot (mark sale as Paid):**  
-![Sales table showing the `Payout Status` dropdown with the `Paid` option.](../images/airtable-payout-sales-mark-paid.png)
+**Grouping**
+
+* Group by: `Payee`
+* Sub-group by: `Status`
+
+  → See how much is accumulated per Payee across Payable / Processing / On Hold / Paid.
 
 ---
 
-## 💡 High-Level Summary (What Operators Should Remember)
+### Summary: “Which view to use when”
 
-1. **Start the process:**  
-   - Create a sale and set `Payout Status = Payable`.
-
-2. **Let automation work:**  
-   - The system:
-     - Creates a **Settlement Batch**.
-     - Calculates all commissions.
-     - Generates detailed **Payouts** records.
-
-3. **Execute money movement:**  
-   - Use the data in `Payouts` to:
-     - Send transfers via Stripe.
-     - Update `Sales` (and optionally `Payouts`) to `Paid`.
-
-4. **Referral caveat (very important):**  
-   - Referral logic is correct in Airtable.
-   - The SignWell contract currently does **not** show who the referrer is.
-   - Until the contract template is updated, always cross-check referral relationships in Airtable, not in the signed PDF.
+* **Today payouts**: daily check that automation created payout records correctly
+* **Check Processing**: actual “send list” for payout day execution
+* **Payee**: full Payee-level status overview / holds / partner support / audit
 
 ---
+
+### [Daily Check] Today payouts verification routine (automation anomaly detection)
+
+**Purpose**
+
+Confirm that the morning settlement automation ran correctly and created Payouts/Batches.
+
+**Timing**
+
+Once per day, recommended **between 9–10 AM** (after the automation runs)
+
+**How**
+
+1. Airtable → Payouts → open **Today payouts**
+2. Verify:
+
+   * Are there any payouts created today?
+
+     * If 0: either no eligible Sales today, or automation did not run
+   * Are `Sale`, `Payee`, `Payout Amount`, `Commission Type` all filled?
+   * Is `Payout Batch` filled?
+   * Any `Status=Error`? Any unusual spike in On Hold?
+
+---
+
+### C. On payout day: send money in Stripe
+
+Recommended practice: **send one payout per recipient (Payee), consolidated.**
+
+(If a Payee has multiple payout lines, sum them and send a single payout.)
+
+### 1) Pre-check in Stripe
+
+Stripe Dashboard → **Global Payouts**
+
+* **Recipients tab**
+
+  * Confirm recipient is **Ready**
+  * If **Needs action / Information needed**, do not pay (hold)
+* **Balance check**
+
+  * If “Add money…” appears, top up as needed before proceeding
+
+### 2) Execute payout (per recipient)
+
+Stripe Dashboard → Global Payouts:
+
+* Create a new payout under “Payouts to recipients”
+* Select recipient
+* Enter the **Payee total amount** confirmed in Airtable
+* If there is a memo/description field, recommended to write:
+
+  * `Settlement Batch ID` (e.g., SETTLE-…)
+  * Payee name
+
+### 3) Capture Stripe Transfer ID
+
+After completion, copy the **Outbound payment ID / Transfer ID** from Stripe.
+
+---
+
+### D. Post-payout closeout: update Airtable (most important)
+
+### 1) Update Payouts (required)
+
+Airtable → Payouts:
+
+* Select all payout lines included in that Payee’s payout run
+* Update:
+
+  * Enter `Stripe Transfer ID`
+  * Change `Status` to **Paid**
+  * Clear `Hold Reason` if it remains (when applicable)
+
+> Rule: Change to **Paid only after the payout is actually sent in Stripe.**
+
+### 2) Update Partners (automatic)
+
+* When you change Payouts `Status=Paid`, the Payee (Partners) `Last Payout Date` is **auto-updated**.
+
+### 3) Update Settlement Batches (recommended)
+
+* If all payout lines in the batch are closed as Paid,
+
+  * Set Batch `Status` to **Paid**
+
+---
+
+## 7) On Hold handling manual (blocked payout cases)
+
+**Principles**
+
+* Do **not** pay any payout line with `Status = On Hold`.
+* Check `Hold Reason`, resolve the root cause, and retry on the next payout day.
+
+### 7-1. Where to find On Hold
+
+* Airtable → Payouts → `Payee` view
+
+  * Check the `Status = On Hold` group and read `Hold Reason`
+
+### 7-2. Common causes & actions
+
+A. **Stripe account status issue**
+
+* Symptom: recipient is not Ready, or Stripe status is not Verified
+* Action:
+
+  1. Stripe → Global Payouts → Recipients: confirm status
+  2. If Needs action: request the recipient to submit required info
+  3. Once Ready/Verified: retry on the next payout day
+
+B. **Missing Stripe Connected Account ID**
+
+* Symptom: `Partner Stripe Connected Account ID` is empty
+* Action: obtain the account ID and fill it in Partners
+
+C. **Payout date not reached (date rule)**
+
+* Symptom: `Partner Next Payout Date` is after today
+* Action: normal case; wait until next payout date
+
+D. **Data linkage / record errors**
+
+* Symptom: missing `Sale` or `Payee` link, abnormal amount/type
+* Action: fix the link/inputs and reprocess
+
+### 7-3. Retry after resolution
+
+* After fixing the issue, either:
+
+  * wait for the next payout day so it appears again in Check Processing, or
+  * if urgent, set the payout back to `Payable` so the next automation run can reevaluate it.
+
+---
+
+## 8) Field reference (only what operators frequently use)
+
+### 8-1. Sales table
+
+* `Sale Date`: sale date
+* `Gross Sale Price`: sale price
+* `Payout Eligibility Date`: sale date + 14 days (eligible date)
+* `Payout Status`: settlement status for the sale
+* `Refund Status / Refund Amount`: refund-related
+* `Payouts`: payout lines created from this sale
+* `Settlement Batches`: which batch it belongs to
+
+### 8-2. Payouts table
+
+* `Payee`: recipient (linked to Partners)
+* `Payout Amount`: amount to send
+* `Commission Type`: Owner / Shop / Ambassador / Referral / Clawback
+* `Status`: Payable / Processing / Paid / On Hold / Error
+* `Hold Reason`: hold reason
+* `Payout Batch`: linked settlement batch
+* `Stripe Transfer ID`: Stripe payout ID to enter after sending
+* `Partner Stripe Connected Account ID`: recipient account ID (required)
+* `Partner Stripe Account Status`: Stripe status (Verified, etc.)
+* `Partner Payout Schedule`: Monthly / Bi-Weekly
+* `Partner Next Payout Date`: next payout date (auto-calculated)
+* `Pay this run?`: optional checkbox to include in current run
+
+### 8-3. Settlement Batches table
+
+* `Batch ID`: batch identifier (SETTLE-…)
+* `Run Date`: creation/run date
+* `Status`: Draft / Ready / Partial / On Hold / Paid / Error / Empty
+* `Total Payouts Processed`: count of payout lines processed
+* `Total Amount Scheduled`: total scheduled amount
+* `Sales Processed`: list of included Sales
+
+---
+
+## 9) Payout day checklist (follow exactly) — based on the current 3-view setup
+
+1. **Confirm today is a payout day**
+
+   * bi-weekly Friday (twice per month) or monthly 1st
+   * if it is not a payout day, do not pay
+2. **Airtable Payouts → open `Check Processing` view**
+
+   * view conditions:
+
+     * `Status = Processing`
+     * `Is Payout Day? = 1`
+3. **Confirm Payee totals (group totals)**
+
+   * Payee group total = amount to send in Stripe
+4. **Confirm recipient status in Stripe**
+
+   * Stripe → Global Payouts → Recipients
+   * pay only **Ready**
+   * if Needs action: hold
+5. **Confirm Stripe balance**
+
+   * if “Add money…” appears, top up before sending
+6. **Send payouts in Stripe (recommended: one consolidated payout per Payee)**
+7. **Copy Stripe Transfer / Outbound payment ID**
+8. **Close out in Airtable**
+
+   * Payouts: enter Stripe Transfer ID + set Status=Paid
+   * Partners: confirm Last Payout Date auto-updated
+   * Settlement Batches: if all Paid, set Batch to Paid
+
+---
+
+### Note: It is recommended to check the Today payouts view only once per day for automation anomaly detection
+
+* This view is not for paying; it is for verifying “did the automation run correctly today.”
