@@ -6,17 +6,6 @@ Version: v1.2
 
 Purpose: This guide explains how to confirm “who to pay and how much” in Airtable, execute manual payouts in the Stripe Dashboard, and accurately close out records in Airtable.
 
----
-
-## Screenshots (this doc)
-
-- Check Processing (Payouts view): `../images/01_airtable_payouts_check-processing_view.png`
-- Today payouts (Payouts view): `../images/02_airtable_payouts_today-payouts_view.png`
-- Payee (Payouts view): `../images/03_airtable_payouts_payee_grouped_view.png`
-- Settlement Batches (Ready batch): `../images/04_airtable_settlement-batches_ready.png`
-- Sales record (Processing): `../images/05_airtable_sales_sale-record_processing.png`
-- Stripe Global Payouts (Recipients): `../images/06_stripe_global-payouts_recipients.png`
-- Stripe Global Payouts (Add money prompt): `../images/07_stripe_global-payouts_add-money_prompt.png`
 
 ---
 

@@ -20,6 +20,7 @@ This manual is the umbrella guide for each automation stream, organized by the o
 
 ### 1. Intake & Offer
 * **[Parts Intake & Offer Automation](7.automation/parts-intake.md)** *Covers the flow from Consignor submission, Price proposal, to Offer acceptance.*
+* **[Individual Partner Onboarding Manual](7.automation/onboarding-video-3-individual.md)** *Covers the individual intake-to-contract flow, email triggers, and verification checklist.*
 
 ### 2. Contract Execution
 * **[SignWell Contract Execution & System Sync](7.automation/signwell-contract-execution.md)** *Covers the flow of signing agreements, archiving PDFs, and syncing partner data.*
