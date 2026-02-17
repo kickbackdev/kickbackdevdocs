@@ -137,8 +137,6 @@ Based on **Gross Sale Price**:
    * Auto-calculated (Sale Date + 14 days)
    * Do not send payouts before this date.
 
-![Sales table with payout eligibility and payout status](../images/airtable-payout-sales-processing.png)
-
 ---
 
 ### B. Settlement prep: create “payout candidates” (Airtable)
@@ -149,8 +147,6 @@ When the settlement automation runs every morning at 9 AM:
 * They are grouped into a Settlement Batch.
 
 The operator’s key task: **select the correct set of recipients to pay today.**
-
-![Settlement batch record with status and totals](../images/airtable-payout-settlement-batch-running.png)
 
 ---
 
@@ -163,8 +159,6 @@ The operator’s key task: **select the correct set of recipients to pay today.*
 This view shows **only the payouts that should actually be sent today**.
 
 On payout days (bi-weekly Friday / monthly 1st), operators open only this view and execute payouts.
-
-![Payouts table with generated payout lines](../images/airtable-payouts-table-generated.png)
 
 **Filters (required)**
 
@@ -200,8 +194,6 @@ This is **not** for sending money; it is for checking payout generation.
 * `created at is today`
 
   → shows only payouts created today
-
-![Today payouts view filtered to created today](../images/airtable-payouts-today-view.png)
 
 **What to verify (checklist)**
 
@@ -317,8 +309,6 @@ Airtable → Payouts:
   * Change `Status` to **Paid**
   * Clear `Hold Reason` if it remains (when applicable)
 
-![Payout record detail showing Stripe Transfer ID and status](../images/airtable-payout-record-detail.png)
-
 > Rule: Change to **Paid only after the payout is actually sent in Stripe.**
 
 ### 2) Update Partners (automatic)
@@ -361,8 +351,6 @@ B. **Missing Stripe Connected Account ID**
 
 * Symptom: `Partner Stripe Connected Account ID` is empty
 * Action: obtain the account ID and fill it in Partners
-
-![Partner record with Stripe Connected Account ID](../images/airtable-payout-partner-stripe-connected-id.png)
 
 C. **Payout date not reached (date rule)**
 
