@@ -137,8 +137,6 @@ Based on **Gross Sale Price**:
    * Auto-calculated (Sale Date + 14 days)
    * Do not send payouts before this date.
 
-![Airtable Sales table showing payout eligibility and payout status](../images/airtable-sales-payout-eligibility.png)
-
 ---
 
 ### B. Settlement prep: create “payout candidates” (Airtable)
@@ -149,8 +147,6 @@ When the settlement automation runs every morning at 9 AM:
 * They are grouped into a Settlement Batch.
 
 The operator’s key task: **select the correct set of recipients to pay today.**
-
-![Airtable Settlement Batches table view](../images/airtable-settlement-batches-view.png)
 
 ---
 
@@ -230,8 +226,6 @@ Used more for **status monitoring / partner inquiries / audit**, not for sending
 
   → See how much is accumulated per Payee across Payable / Processing / On Hold / Paid.
 
-![Airtable Payouts table grouped by payee and status](../images/airtable-payouts-payee-view.png)
-
 ---
 
 ### Summary: “Which view to use when”
@@ -281,13 +275,9 @@ Stripe Dashboard → **Global Payouts**
   * Confirm recipient is **Ready**
   * If **Needs action / Information needed**, do not pay (hold)
 
-![Stripe Global Payouts recipients list](../images/stripe-global-payouts-recipients.png)
-
 * **Balance check**
 
   * If “Add money…” appears, top up as needed before proceeding
-
-![Stripe Global Payouts add money notice](../images/stripe-global-payouts-add-money.png)
 
 ### 2) Execute payout (per recipient)
 
@@ -347,6 +337,8 @@ Airtable → Payouts:
 
   * Check the `Status = On Hold` group and read `Hold Reason`
 
+![Airtable Payouts table grouped by payee and status](../images/airtable-payouts-payee-view.png)
+
 ### 7-2. Common causes & actions
 
 A. **Stripe account status issue**
@@ -394,6 +386,8 @@ D. **Data linkage / record errors**
 * `Payouts`: payout lines created from this sale
 * `Settlement Batches`: which batch it belongs to
 
+![Airtable Sales table showing payout eligibility and payout status](../images/airtable-sales-payout-eligibility.png)
+
 ### 8-2. Payouts table
 
 * `Payee`: recipient (linked to Partners)
@@ -418,6 +412,8 @@ D. **Data linkage / record errors**
 * `Total Amount Scheduled`: total scheduled amount
 * `Sales Processed`: list of included Sales
 
+![Airtable Settlement Batches table view](../images/airtable-settlement-batches-view.png)
+
 ---
 
 ## 9) Payout day checklist (follow exactly) — based on the current 3-view setup
@@ -440,9 +436,13 @@ D. **Data linkage / record errors**
    * Stripe → Global Payouts → Recipients
    * pay only **Ready**
    * if Needs action: hold
+
+   ![Stripe Global Payouts recipients list](../images/stripe-global-payouts-recipients.png)
 5. **Confirm Stripe balance**
 
    * if “Add money…” appears, top up before sending
+
+   ![Stripe Global Payouts add money notice](../images/stripe-global-payouts-add-money.png)
 6. **Send payouts in Stripe (recommended: one consolidated payout per Payee)**
 7. **Copy Stripe Transfer / Outbound payment ID**
 8. **Close out in Airtable**
