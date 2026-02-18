@@ -157,6 +157,20 @@ Manages Shop contracts and subsequent individual contracts.
 
 ## 4. Demo Timeline (Video Based)
 
+**Video (YouTube):**
+
+<div style="max-width: 720px;">
+  <iframe
+    width="100%"
+    height="405"
+    src="https://www.youtube.com/embed/Wq6J__Ds9bU"
+    title="Shop Onboarding Demo Timeline - Video Walkthrough"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+</div>
+
 | Time | Action | Where to Verify |
 | :--- | :--- | :--- |
 | **00:00 – 00:05** | Start Shop Partner Application | Website |

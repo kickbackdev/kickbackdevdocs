@@ -110,6 +110,20 @@ Final registered part information.
 
 ### 3.2 Demo Timeline (Video Guide)
 
+**Video (YouTube):**
+
+<div style="max-width: 720px;">
+  <iframe
+    width="100%"
+    height="405"
+    src="https://www.youtube.com/embed/fGMyS-0tqHk"
+    title="Individual Onboarding Demo Timeline - Video Walkthrough"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+</div>
+
 | Time | Action | Where to verify |
 | :--- | :--- | :--- |
 | **00:00 – 00:10** | **Open Parts Inquiry Submission Form** (Individual Intake Form) | Website Form Screen |
