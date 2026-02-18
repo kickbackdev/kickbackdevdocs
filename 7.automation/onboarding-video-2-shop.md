@@ -8,21 +8,23 @@ Operators can follow this manual to perform and verify the entire process: **App
 ## 1. Concept and Workflow Summary
 
 ### 📌 Shop Onboarding Full Flow
-**Shop Inquiries (Application Received)**
-↓
-**Admin Approval (Status = Accepted & Check `Click to Send Agreement`)**
-↓
-**Shop Master Contract Sent (SignWell)**
-↓
-**Contract Completed → Partners & Contracts Updated**
-↓
-**Shop Intake QR Sent (Welcome Email)**
-↓
-**Shop Registers Parts via QR**
-↓
-**Per Product Contract Sent & Signed**
-↓
-**Final Data Verification + QR Label Sent**
+| Step | Flow |
+| :--: | :--- |
+| 1 | **Shop Inquiries** (Application Received) |
+|   | ⬇ |
+| 2 | **Admin Approval** (Status = `Accepted` + Check `Click to Send Agreement`) |
+|   | ⬇ |
+| 3 | **Shop Master Contract Sent** (SignWell) |
+|   | ⬇ |
+| 4 | **Contract Completed** → Partners & Contracts Updated |
+|   | ⬇ |
+| 5 | **Shop Intake QR Sent** (Welcome Email) |
+|   | ⬇ |
+| 6 | **Shop Registers Parts via QR** |
+|   | ⬇ |
+| 7 | **Per Product Contract Sent & Signed** |
+|   | ⬇ |
+| 8 | **Final Data Verification + QR Label Sent** |
 
 ### 📌 Core Process Summary
 1.  **Shop Application:** Submit Shop Application Form on the website.
