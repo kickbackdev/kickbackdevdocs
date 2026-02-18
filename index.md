@@ -16,8 +16,7 @@ This manual is the umbrella guide for each automation stream, organized by the o
 ### Ops Links
 
 - **<a href="https://airtable.com/app40FhuAF7dShHSy?" target="_blank" rel="noopener noreferrer">Ops Airtable Base</a>**
-- **<a href="https://zapier.com/editor/330003026/published" target="_blank" rel="noopener noreferrer">SignWell → Airtable Automation (Zapier)</a>**
-- **<a href="https://zapier.com/editor/339379457/published" target="_blank" rel="noopener noreferrer">Settlement Automation (Zapier)</a>**
+- **<a href="https://zapier.com/editor/349293064/published" target="_blank" rel="noopener noreferrer">Settlement Automation (Zapier)</a>**
 
 ### 1. Intake & Offer
 
