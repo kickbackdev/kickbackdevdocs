@@ -17,7 +17,7 @@ Purpose: This guide explains how to confirm “who to pay and how much” in Air
   <iframe
     width="100%"
     height="405"
-    src="https://www.youtube.com/embed/PqJeqqyJHp8"
+    src="https://www.youtube.com/embed/HBaCV1EawxY"
     title="Airtable Payout Processing Demo Timeline - Video Walkthrough"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
