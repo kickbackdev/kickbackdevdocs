@@ -341,6 +341,17 @@ Airtable → Payouts:
 * Airtable → Payouts → `Payee` view
   * Check the `Status = On Hold` group and read `Hold Reason`
 
+### 7-1a. Where to enter partner Stripe account details (UI)
+
+If an On Hold case is caused by missing or outdated Stripe recipient info, update it in:
+
+* Airtable → Ops View → `partner Stripe Info`
+* Open the partner record, then enter/update:
+  * `Stripe Connected Account ID` (partner’s Stripe Connected Account ID)
+  * `Stripe Account Status` (e.g., Verified, Needs action)
+
+These values are referenced in Payouts as `Partner Stripe Connected Account ID` and `Partner Stripe Account Status`.
+
 ### 7-2. Common causes & actions
 
 A. **Stripe account status issue**
