@@ -482,3 +482,140 @@ D. **Data linkage / record errors**
 ### Note: It is recommended to check the Today payouts view only once per day for automation anomaly detection
 
 * This view is not for paying; it is for verifying “did the automation run correctly today.”
+
+---
+
+## 10) Flow A Addendum (SOW Alignment)
+
+### 10-1. Policy addendum
+
+* **Minimum payout**
+
+  * No separate minimum payout threshold is defined in this manual.
+* **Settlement currency**
+
+  * Examples in this document use **USD**.
+* **Multi-currency / FX**
+
+  * Multi-currency and FX handling are not included.
+* **Refund / chargeback ordering**
+
+  * The operating model is **hold-before-release** (escrow-style).
+  * Funds remain blocked during the waiting / claim window and move forward only after the sale clears.
+  * Default behavior is not post-payout clawback.
+* **Net calculation logic**
+
+  * `gross - fee - hold - adjustment = net`
+
+---
+
+### 10-2. Flow A execution model (operator steps)
+
+**Operator flow**
+
+1. Review eligible Sales
+2. Review payout candidates in Airtable
+3. Resolve hold reasons (if any)
+4. Confirm recipient readiness in Stripe
+5. Execute payout in Stripe
+6. Record Stripe reference ID in Airtable
+7. Close out payout lines as `Paid`
+8. Close out the Settlement Batch after all included payout lines are paid
+
+**State transitions**
+
+* **Payout line**
+
+  * `Payable → Processing → Paid`
+* **Exception path**
+
+  * `Payable / Processing → On Hold`
+  * `Processing → Error`
+* **Settlement batch**
+
+  * `Draft → Ready → Paid`
+  * or `Draft / Ready → Partial / Error` when applicable
+
+---
+
+### 10-3. Reconciliation and closeout controls
+
+**Closeout rule**
+
+After a payout is sent:
+
+* copy the Stripe payout reference / transfer reference
+* enter it into Airtable
+* change the payout line `Status` to `Paid`
+* clear `Hold Reason` if it remains (when applicable)
+* update the Settlement Batch status after all included payout lines are closed
+
+**Recommended reconciliation check**
+
+For each payout run, compare:
+
+* **Payee total confirmed in Airtable**
+* vs **amount actually sent in Stripe**
+
+Close out only after amounts match and there is no unexplained variance.
+
+**Compact reconciliation template**
+
+| Date | Payee | Batch ID | Airtable Amount | Stripe Amount Sent | Variance | Result | Notes |
+| ---- | ----- | -------- | --------------: | -----------------: | -------: | ------ | ----- |
+
+---
+
+### 10-4. Exception handling and reprocess path
+
+**Common blocking reasons**
+
+* missing `Stripe Connected Account ID`
+* recipient not ready / not verified in Stripe
+* payout date not reached
+* invalid or missing record linkage
+* incorrect payout inputs requiring review
+
+**Reprocess path after resolution**
+
+After the root cause is fixed:
+
+* wait until the next payout day so the item appears again in `Check Processing`, or
+* set the payout back to `Payable` so the next automation run reevaluates it, or
+* move it back to `Processing` when it is ready to be sent in the current reviewed run
+
+---
+
+### 10-5. Minimal field mapping reference
+
+| Concept                           | Airtable field                         |
+| --------------------------------- | -------------------------------------- |
+| Payout line status                | `Payouts.Status`                       |
+| Hold / blocking note              | `Payouts.Hold Reason`                  |
+| Stripe payout reference           | `Payouts.Stripe Transfer ID`           |
+| Recipient connected account ID    | `Partners.Stripe Connected Account ID` |
+| Recipient Stripe readiness/status | `Partners.Stripe Account Status`       |
+| Batch identifier                  | `Settlement Batches.Batch ID`          |
+| Partner next payout date          | `Payouts.Partner Next Payout Date`     |
+
+---
+
+### 10-6. Compact incident and change-control note
+
+**Incident handling**
+
+1. Identify the payout line in `Today payouts`, `Check Processing`, or `Payee`
+2. Read the current `Status` and `Hold Reason`
+3. Fix the source issue
+4. Reprocess through the standard operator path
+5. Confirm the Stripe reference is recorded
+6. Close out only after the payout is actually sent
+
+**Change control**
+
+Any material change to payout policy, status logic, Airtable fields, or operator steps should be reflected in this document by:
+
+* updating the version number
+* updating screenshots if relevant
+* updating the affected SOP steps
+* rechecking the operator flow before reuse
