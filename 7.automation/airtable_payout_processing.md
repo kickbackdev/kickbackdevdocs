@@ -9,6 +9,36 @@ Purpose: This guide explains how to confirm “who to pay and how much” in Air
 
 ---
 
+## 0) Demo Timeline (Video Based)
+
+**Video (YouTube):**
+
+<div style="max-width: 720px;">
+  <iframe
+    width="100%"
+    height="405"
+    src="https://www.youtube.com/embed/PqJeqqyJHp8"
+    title="Airtable Payout Processing Demo Timeline - Video Walkthrough"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+</div>
+
+| Time | Action | Where to Verify |
+| :--- | :--- | :--- |
+| **00:00 – 00:30** | Review Payout Rules & Status Definitions | Settlement Policy Doc |
+| **00:30 – 01:27** | Check Eligible Sales & Settlement Batch | Airtable (Sales Table) |
+| **01:27 – 02:00** | Review Today's Payouts (Processing & On Hold) | Airtable (Today Payout) |
+| **02:00 – 02:41** | Resolve Hold Reason (Enter Missing Stripe ID) | Airtable (partner Stripe Info) |
+| **02:41 – 03:07** | Update Status (On Hold → Processing) | Airtable (Today Payout) |
+| **03:07 – 03:31** | Check Recipient Readiness | Stripe (Global Payouts) |
+| **03:31 – 03:45** | Confirm Recipient Bank Details | Stripe (Recipient Detail) |
+| **03:45 – 04:13** | Execute Payout (Enter Amount & Send) | Stripe (Send Payout Modal) |
+| **04:13 – 04:36** | Close Out Payout (Mark as Paid) | Airtable (Today Payout) |
+
+---
+
 ## 1) Settlement policy (rules) — non-negotiables
 
 ### 1-1. When an item becomes “included in settlement”
